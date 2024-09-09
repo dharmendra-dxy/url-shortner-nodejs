@@ -3,7 +3,7 @@
 ### Packeges used:
 + express
 + mongoose
-+ nano_Id
++ short-unique-id
 
 
 ### Routes:
