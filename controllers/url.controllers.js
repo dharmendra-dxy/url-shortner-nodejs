@@ -1,5 +1,5 @@
 const URL = require("../models/url.model");
-
+const ShortUniqueId = require("short-unique-id");
 
 
 // handleGenerateNewShortURL:
@@ -20,7 +20,24 @@ async function handleGenerateNewShortURL(req, res){
     return res.json({id: shortID});
 }
 
+// handleRedirectToURL:
+async function handleRedirectToURL(req, res){
+
+    const shortId = req.params.shortId;
+
+    const entry = await URL.findOneAndUpdate({
+        shortId
+    }, {$push: 
+        {visitHistory: {
+            timeStamp: Date.now(),
+        }} 
+    });
+
+    res.redirect(entry.redirectURL);
+
+}
 
 module.exports= {
     handleGenerateNewShortURL,
+    handleRedirectToURL,
 }
