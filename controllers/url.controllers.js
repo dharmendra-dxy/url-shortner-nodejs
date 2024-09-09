@@ -37,7 +37,20 @@ async function handleRedirectToURL(req, res){
 
 }
 
+// handleGetAnalytics:
+async function handleGetAnalytics(req, res){
+
+    const shortId = req.params.shortId;
+    
+    const entry = await URL.findOne({shortId});
+    return res.json({ 
+        "total clicks": entry.visitHistory.length,
+        "analytics" : entry.visitHistory,
+    });
+}
+
 module.exports= {
     handleGenerateNewShortURL,
     handleRedirectToURL,
+    handleGetAnalytics,
 }
